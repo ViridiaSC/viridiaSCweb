@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viridia SkinCare · Tu Ritual. Tu Disciplina.</title>
+
+  <!-- ── TIPOGRAFÍAS ────────────────────────────────────────────
+       Cormorant Garamond: display serif con elegancia editorial
+       DM Sans: sans-serif moderno y limpio para cuerpo de texto
+  ──────────────────────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="logoVSC.png">
+  <style>
+    /* ============================================================
+       TOKENS DE DISEÑO — Variables globales de la paleta
+    ============================================================ */
+    :root {
+      /* — Paleta principal — */
+      --navy:          #0f1f4b;      /* Azul marino profundo */
+      --navy-mid:      #1a2f6e;      /* Navy medio */
+      --sapphire:      #2c4a9e;      /* Zafiro */
+      --sapphire-soft: #4a6fa5;      /* Zafiro suave */
+      --sapphire-pale: #c8d8f0;      /* Zafiro muy claro */
+      --ivory:         #f8f7f4;      /* Marfil */
+      --ivory-warm:    #f0eee9;      /* Marfil cálido */
+      --white:         #ffffff;
+
+      /* — Dorado (sutil, solo para acentos) — */
+      --gold:          #b8973a;      /* Dorado apagado, no brillante */
+      --gold-light:    #d4b96a;      /* Dorado claro */
+      --gold-pale:     #f0e6c4;      /* Fondo dorado muy tenue */
+
+      /* — Texto — */
+      --text-dark:     #080f25;      /* Casi negro azulado */
+      --text-mid:      #2a3a6a;      /* Azul medio */
+      --text-soft:     #5a6e99;      /* Azul grisáceo */
+      --text-muted:    #8c9bbf;      /* Azul muy suave */
+
+      /* — Sombras — */
+      --shadow-xs:  0 1px 4px rgba(15, 31, 75, 0.07);
+      --shadow-sm:  0 4px 16px rgba(15, 31, 75, 0.09);
+      --shadow-md:  0 8px 32px rgba(15, 31, 75, 0.12);
+      --shadow-lg:  0 16px 56px rgba(15, 31, 75, 0.16);
+
+      /* — Tipografías — */
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      /* — Espaciado y radios — */
+      --radius-sm:   8px;
+      --radius-md:   16px;
+      --radius-lg:   28px;
+      --radius-pill: 999px;
+
+      /* — Transición estándar — */
+      --ease: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================================
+       RESET LIMPIO
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--ivory);
+      color: var(--text-dark);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ── Utilidades ── */
+    .u-gold-line {
+      display: inline-block;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(248, 247, 244, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200, 216, 240, 0.5);
+    }
+
+    /* Logo */
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .nav__logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Rombo SVG inline dentro del logo */
+    .nav__logo-mark svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--gold-light);
+    }
+
+    .nav__logo-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.01em;
+    }
+
+    .nav__logo-text span {
+      color: var(--gold);
+    }
+
+    /* Links de navegación */
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color var(--ease);
+      position: relative;
+    }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width var(--ease);
+    }
+
+    .nav__links a:hover {
+      color: var(--navy);
+    }
+
+    .nav__links a:hover::after {
+      width: 100%;
+    }
+
+    /* Botón CTA de la nav */
+    .nav__cta {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white) !important;
+      background: var(--navy);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 0.55rem 1.4rem;
+      cursor: pointer;
+      transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
+    }
+
+    .nav__cta:hover {
+      background: var(--sapphire);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(15, 31, 75, 0.25);
+    }
+
+    .nav__cta::after { display: none !important; }
+
+    /* ============================================================
+       SECCIÓN: HERO
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 2rem 80px;
+      position: relative;
+      overflow: hidden;
+
+      /* Fondo: degradado diagonal sutil */
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 20%, rgba(44, 74, 158, 0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(15, 31, 75, 0.05) 0%, transparent 60%),
+        var(--ivory);
+    }
+
+    /* Patrón de puntos de fondo del hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(15, 31, 75, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* Línea decorativa vertical derecha */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 15%;
+      right: 8%;
+      width: 1px;
+      height: 50%;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.4;
+    }
+
+    .hero__inner {
+      max-width: 860px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Etiqueta superior tipo "pill" */
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-pale);
+      border: 1px solid rgba(184, 151, 58, 0.25);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+
+      /* Animación de entrada */
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero__tag-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* Título principal del hero */
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--navy);
+      font-weight: 300;
+    }
+
+    .hero__title strong {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* Línea dorada decorativa bajo el título */
+    .hero__divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0 auto 1.75rem;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero__divider-line {
+      width: 56px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+
+    .hero__divider-line:last-child {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+
+    .hero__divider-gem {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      border-radius: 1px;
+    }
+
+    /* Subtítulo del hero */
+    .hero__subtitle {
+      font-size: 1.08rem;
+      font-weight: 300;
+      color: var(--text-soft);
+      max-width: 520px;
+      margin: 0 auto 2.75rem;
+      line-height: 1.8;
+      animation: fadeUp 0.8s 0.25s ease both;
+    }
+
+    /* Grupo de botones */
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.35s ease both;
+    }
+
+    /* Estadísticas flotantes bajo el hero */
+    .hero__stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--sapphire-pale);
+      animation: fadeUp 0.8s 0.5s ease both;
+      flex-wrap: wrap;
+    }
+
+    .hero__stat-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1;
+      display: block;
+    }
+
+    .hero__stat-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    /* ============================================================
+       BOTONES REUTILIZABLES
+    ============================================================ */
+
+    /* Botón primario: navy sólido */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--navy);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 0.9rem 2rem;
+      cursor: pointer;
+      transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
+    }
+
+    .btn-primary:hover {
+      background: var(--sapphire);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    /* Flecha del botón primario */
+    .btn-primary__arrow {
+      font-size: 1rem;
+      transition: transform var(--ease);
+    }
+
+    .btn-primary:hover .btn-primary__arrow {
+      transform: translateX(3px);
+    }
+
+    /* Botón secundario: contorno */
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: transparent;
+      border: 1.5px solid var(--sapphire-pale);
+      border-radius: var(--radius-pill);
+      padding: 0.9rem 2rem;
+      cursor: pointer;
+      transition: border-color var(--ease), color var(--ease), background var(--ease), transform var(--ease);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       LAYOUT CONTENEDOR GENERAL
+    ============================================================ */
+    .section {
+      padding: 100px 2rem;
+    }
+
+    .section--alt {
+      background: var(--white);
+    }
+
+    .section--navy {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+    }
+
+    /* Encabezado de sección reutilizable */
+    .section-head {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-head__label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-head__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .section-head__title em {
+      font-style: italic;
+      color: var(--sapphire);
+    }
+
+    .section-head__title--light {
+      color: var(--white);
+    }
+
+    .section-head__desc {
+      font-size: 0.97rem;
+      font-weight: 300;
+      color: var(--text-soft);
+      max-width: 520px;
+      margin: 1rem auto 0;
+      line-height: 1.8;
+    }
+
+    .section-head__desc--light {
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ============================================================
+       SECCIÓN: SOBRE EL PROYECTO
+    ============================================================ */
+    .about {
+      background: var(--white);
+    }
+
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    /* Columna de texto */
+    .about__text-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .about__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    .about__title em {
+      font-style: italic;
+      color: var(--navy);
+    }
+
+    .about__body {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .about__body + .about__body { margin-top: 0.75rem; }
+
+    /* Lista de atributos del proyecto */
+    .about__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.75rem;
+    }
+
+    .about__pill {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--navy);
+      background: var(--sapphire-pale);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.9rem;
+      letter-spacing: 0.03em;
+      transition: background var(--ease), color var(--ease);
+    }
+
+    .about__pill:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    /* Columna visual — panel decorativo */
+    .about__visual {
+      position: relative;
+    }
+
+    .about__panel {
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      border: 1px solid var(--sapphire-pale);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Esquina decorativa dorada */
+    .about__panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(225deg, var(--gold-pale) 0%, transparent 60%);
+    }
+
+    /* Línea lateral izquierda del panel */
+    .about__panel::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      width: 3px;
+      height: 60%;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      border-radius: 3px;
+    }
+
+    /* Ítem dentro del panel */
+    .about__panel-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--sapphire-pale);
+    }
+
+    .about__panel-item:last-child {
+      border-bottom: none;
+    }
+
+    .about__panel-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .about__panel-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.15rem;
+    }
+
+    .about__panel-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ============================================================
+       SECCIÓN: MISIÓN Y VISIÓN
+    ============================================================ */
+    .mv {
+      background: var(--ivory-warm);
+    }
+
+    .mv__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* Tarjeta de misión / visión */
+    .mv__card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.75rem 2.5rem;
+      border: 1px solid var(--sapphire-pale);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+
+    .mv__card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Acento de esquina en cada tarjeta */
+    .mv__card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--navy), var(--sapphire));
+    }
+
+    /* Ícono de la tarjeta */
+    .mv__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--navy), var(--sapphire));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 16px rgba(15, 31, 75, 0.2);
+    }
+
+    .mv__label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .mv__title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 1.1rem;
+      line-height: 1.2;
+    }
+
+    .mv__text {
+      font-size: 0.93rem;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.85;
+    }
+
+    .mv__text em {
+      font-style: normal;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       SECCIÓN: BENEFICIOS
+    ============================================================ */
+    .benefits {
+      background: var(--white);
+    }
+
+    /* Grid de 4 tarjetas de beneficios */
+    .benefits__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* Tarjeta de beneficio individual */
+    .benefit-card {
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      border: 1px solid var(--sapphire-pale);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--ease), box-shadow var(--ease), background var(--ease);
+      cursor: default;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      background: var(--white);
+    }
+
+    /* Barra superior de color al hacer hover */
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+      background: linear-gradient(90deg, var(--navy), var(--sapphire));
+      transition: height var(--ease);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .benefit-card:hover::before {
+      height: 3px;
+    }
+
+    /* Número grande decorativo de fondo */
+    .benefit-card__num {
+      position: absolute;
+      top: -0.5rem;
+      right: 1rem;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 600;
+      color: rgba(15, 31, 75, 0.04);
+      line-height: 1;
+      pointer-events: none;
+      transition: color var(--ease);
+    }
+
+    .benefit-card:hover .benefit-card__num {
+      color: rgba(15, 31, 75, 0.07);
+    }
+
+    /* Ícono del beneficio */
+    .benefit-card__icon {
+      width: 48px;
+      height: 48px;
+      background: var(--navy);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 14px rgba(15, 31, 75, 0.18);
+      transition: transform var(--ease);
+    }
+
+    .benefit-card:hover .benefit-card__icon {
+      transform: scale(1.08);
+    }
+
+    .benefit-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.65rem;
+      line-height: 1.25;
+    }
+
+    .benefit-card__desc {
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--text-soft);
+      line-height: 1.75;
+    }
+
+    /* Tag al pie de la tarjeta */
+    .benefit-card__tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sapphire-soft);
+      margin-top: 1.25rem;
+      padding: 0.25rem 0.7rem;
+      background: var(--sapphire-pale);
+      border-radius: var(--radius-pill);
+      transition: background var(--ease), color var(--ease);
+    }
+
+    .benefit-card:hover .benefit-card__tag {
+      background: var(--navy);
+      color: var(--gold-light);
+    }
+
+    /* ============================================================
+       SECCIÓN: CTA FINAL
+    ============================================================ */
+    .cta-final {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      padding: 110px 2rem;
+    }
+
+    /* Fondo decorativo: degradados radiales */
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(44, 74, 158, 0.4) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-final::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -5%;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184, 151, 58, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-final__inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-final__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid rgba(184, 151, 58, 0.3);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-final__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-final__title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .cta-final__subtitle {
+      font-size: 0.97rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 2.75rem;
+      line-height: 1.8;
+    }
+
+    /* Botón CTA luminoso */
+    .btn-luminous {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold-light);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 1rem 2.25rem;
+      cursor: pointer;
+      transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
+    }
+
+    .btn-luminous:hover {
+      background: var(--white);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(212, 185, 106, 0.4);
+    }
+
+    .btn-luminous:active { transform: translateY(0); }
+
+    .btn-luminous__arrow {
+      font-size: 1.1rem;
+      transition: transform var(--ease);
+    }
+
+    .btn-luminous:hover .btn-luminous__arrow {
+      transform: translateX(4px);
+    }
+
+    /* Nota fina bajo el CTA */
+    .cta-final__note {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      font-weight: 300;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--text-dark);
+      padding: 2.5rem 2rem;
+    }
+
+    .footer__inner {
+      max-width: 1020px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .footer__logo span { color: var(--gold-light); }
+
+    .footer__copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      font-weight: 300;
+    }
+
+    .footer__gem {
+      color: var(--gold);
+      font-size: 0.65rem;
+    }
+
+    /* ============================================================
+       ANIMACIONES DE ENTRADA
+    ============================================================ */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animación genérica para secciones */
+    .anim-up {
+      animation: fadeUp 0.7s ease both;
+    }
+
+    /* ============================================================
+       RESPONSIVE — Tablet y Móvil
+    ============================================================ */
+    @media (max-width: 900px) {
+      /* Ocultar links de nav en móvil */
+      .nav__links { display: none; }
+      .nav { padding: 0.8rem 1rem; }
+
+      /* About: apila las columnas */
+      .about__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      /* Misión/Visión: columna única */
+      .mv__grid { grid-template-columns: 1fr; }
+
+      /* Beneficios: 2 columnas en tablet */
+      .benefits__grid { grid-template-columns: repeat(2, 1fr); }
+
+      .footer {
+        padding: 2rem 1rem;
+      }
+
+      .footer__inner {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .section { padding: 70px 1.25rem; }
+      .hero { padding: 100px 1.25rem 60px; }
+
+      /* Beneficios: 1 columna en móvil */
+      .benefits__grid { grid-template-columns: 1fr; }
+
+      .hero__stats { gap: 1.75rem; }
+
+      .hero__actions { flex-direction: column; align-items: stretch; text-align: center; }
+
+      .btn-primary, .btn-outline { justify-content: center; }
+
+      .mv__card { padding: 2rem 1.5rem; }
+
+      .cta-final { padding: 80px 1.25rem; }
+
+      .nav__logo { font-size: 1rem; }
+      .footer__logo { font-size: 1rem; }
+      .footer__copy { font-size: 0.7rem; }
+      .footer__inner { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR — Barra de navegación fija
+  ============================================================ -->
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="#" class="nav__logo" aria-label="Viridia SkinCare inicio">
+      <div class="nav__logo-mark" aria-hidden="true">
+        <!-- Rombo SVG como símbolo de la marca -->
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 1 L14 8 L8 15 L2 8 Z"/>
+        </svg>
+      </div>
+      <span class="nav__logo-text">Viridia <span>·</span> SkinCare</span>
+    </a>
+
+    <ul class="nav__links" role="list">
+      <li><a href="#sobre">Sobre Viridia</a></li>
+      <li><a href="#mision">Misión</a></li>
+      <li><a href="#beneficios">Beneficios</a></li>
+    </ul>
+
+    <a href="#cta-final" class="nav__links nav__cta" role="button">Comenzar</a>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO — Sección principal de impacto
+  ============================================================ -->
+  <section class="hero" aria-label="Introducción a Viridia SkinCare">
+    <div class="hero__inner">
+
+      <!-- Etiqueta superior -->
+      <div class="hero__tag" aria-label="Categoría">
+        <span class="hero__tag-dot" aria-hidden="true"></span>
+        Luxury Wellness · Skin Rituals
+      </div>
+
+      <!-- Título principal -->
+      <h1 class="hero__title">
+        Tu piel merece<br>
+        <em>disciplina</em> y <strong>ritual</strong>
+      </h1>
+
+      <!-- Separador decorativo dorado -->
+      <div class="hero__divider" aria-hidden="true">
+        <span class="hero__divider-line"></span>
+        <span class="hero__divider-gem"></span>
+        <span class="hero__divider-line"></span>
+      </div>
+
+      <!-- Subtítulo -->
+      <p class="hero__subtitle">
+        Viridia SkinCare es tu sistema de hábitos de cuidado personal.
+        Registra, sigue y mantén tu rutina diaria con elegancia y precisión.
+      </p>
+
+      <!-- Botones de acción -->
+      <div class="hero__actions">
+        <a href="https://viridiasc.github.io/ViridiaSC/" class="btn-primary">
+          Comenzar ahora
+          <span class="btn-primary__arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#sobre" class="btn-outline">
+          Conocer más
+        </a>
+      </div>
+
+      <!-- Mini estadísticas -->
+      <div class="hero__stats" aria-label="Estadísticas del proyecto">
+        <div>
+          <span class="hero__stat-num">30</span>
+          <span class="hero__stat-label">Días de seguimiento</span>
+        </div>
+        <div>
+          <span class="hero__stat-num">2×</span>
+          <span class="hero__stat-label">Rutinas por día</span>
+        </div>
+        <div>
+          <span class="hero__stat-num">100%</span>
+          <span class="hero__stat-label">Personalizado</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SOBRE EL PROYECTO — Qué es Viridia
+  ============================================================ -->
+  <section class="section about" id="sobre" aria-label="Sobre Viridia SkinCare">
+    <div class="container">
+      <div class="about__grid">
+
+        <!-- Columna de texto -->
+        <div>
+          <span class="about__text-label">Sobre el proyecto</span>
+          <span class="u-gold-line" aria-hidden="true"></span>
+          <h2 class="about__title">
+            Más que skincare.<br>
+            <em>Un sistema de hábitos</em>
+          </h2>
+
+          <p class="about__body">
+            Viridia SkinCare no es solo una app de belleza. Es una plataforma de
+            disciplina personal diseñada para convertir el cuidado de tu piel en un
+            ritual diario consistente, medible y motivador.
+          </p>
+          <p class="about__body">
+            Entendemos que la constancia es el ingrediente más poderoso en cualquier
+            rutina. Por eso combinamos seguimiento inteligente, historial visual y
+            recordatorios personalizados en una experiencia digital que se siente
+            tan elegante como el producto que usas.
+          </p>
+
+          <!-- Etiquetas de características -->
+          <div class="about__pills" role="list" aria-label="Características principales">
+            <span class="about__pill" role="listitem">Rutinas AM / PM</span>
+            <span class="about__pill" role="listitem">Historial 30 días</span>
+            <span class="about__pill" role="listitem">Progreso visual</span>
+            <span class="about__pill" role="listitem">Recordatorios</span>
+            <span class="about__pill" role="listitem">Consistencia</span>
+          </div>
+        </div>
+
+        <!-- Columna visual: panel con ítems -->
+        <div class="about__visual">
+          <div class="about__panel">
+
+            <div class="about__panel-item">
+              <div class="about__panel-icon" aria-hidden="true">🌅</div>
+              <div>
+                <p class="about__panel-title">Rutina de Mañana</p>
+                <p class="about__panel-desc">Limpieza · Tónico · Hidratante · SPF</p>
+              </div>
+            </div>
+
+            <div class="about__panel-item">
+              <div class="about__panel-icon" aria-hidden="true">🌙</div>
+              <div>
+                <p class="about__panel-title">Rutina de Noche</p>
+                <p class="about__panel-desc">Desmaquillante · Sérum · Crema nocturna</p>
+              </div>
+            </div>
+
+            <div class="about__panel-item">
+              <div class="about__panel-icon" aria-hidden="true">📈</div>
+              <div>
+                <p class="about__panel-title">Seguimiento de Progreso</p>
+                <p class="about__panel-desc">Calendario visual · Racha de días · Porcentaje</p>
+              </div>
+            </div>
+
+            <div class="about__panel-item">
+              <div class="about__panel-icon" aria-hidden="true">🔔</div>
+              <div>
+                <p class="about__panel-title">Recordatorios Inteligentes</p>
+                <p class="about__panel-desc">7:00 AM y 9:00 PM · Nunca olvides tu ritual</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       MISIÓN Y VISIÓN
+  ============================================================ -->
+  <section class="section mv" id="mision" aria-label="Misión y Visión de Viridia">
+    <div class="container">
+
+      <div class="section-head">
+        <span class="section-head__label">Propósito</span>
+        <h2 class="section-head__title">
+          Lo que nos <em>guía</em>
+        </h2>
+      </div>
+
+      <div class="mv__grid">
+
+        <!-- MISIÓN -->
+        <div class="mv__card">
+          <div class="mv__icon" aria-hidden="true">🎯</div>
+          <span class="mv__label">Misión</span>
+          <h3 class="mv__title">Simplificar el cuidado diario</h3>
+          <p class="mv__text">
+            Facilitar el cuidado de la piel mediante una experiencia digital
+            <em>simple, intuitiva y motivadora</em>, que permita a cada usuario
+            seguir, registrar y mantener su rutina diaria de forma
+            <em>constante y personalizada</em>.
+          </p>
+        </div>
+
+        <!-- VISIÓN -->
+        <div class="mv__card">
+          <div class="mv__icon" aria-hidden="true">🌐</div>
+          <span class="mv__label">Visión</span>
+          <h3 class="mv__title">Liderar el bienestar digital</h3>
+          <p class="mv__text">
+            Convertirse en la <em>plataforma líder en hábitos de cuidado personal digital</em>,
+            ayudando a millones de personas a construir rutinas consistentes que mejoren
+            su <em>bienestar, autoestima y disciplina diaria</em>.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       BENEFICIOS — Tarjetas con ventajas clave
+  ============================================================ -->
+  <section class="section benefits" id="beneficios" aria-label="Beneficios de Viridia SkinCare">
+    <div class="container">
+
+      <div class="section-head">
+        <span class="section-head__label">Por qué Viridia</span>
+        <h2 class="section-head__title">
+          Diseñado para tu <em>consistencia</em>
+        </h2>
+        <p class="section-head__desc">
+          Cada funcionalidad fue pensada para que mantener tu rutina sea
+          natural, placentero y medible.
+        </p>
+      </div>
+
+      <div class="benefits__grid">
+
+        <!-- Beneficio 1: Seguimiento Diario -->
+        <article class="benefit-card">
+          <span class="benefit-card__num" aria-hidden="true">01</span>
+          <div class="benefit-card__icon" aria-hidden="true">✓</div>
+          <h3 class="benefit-card__title">Seguimiento Diario</h3>
+          <p class="benefit-card__desc">
+            Marca cada paso de tu rutina mañana y noche. Visualiza tu avance
+            en tiempo real con barras de progreso elegantes.
+          </p>
+          <span class="benefit-card__tag">Check · Mañana y noche</span>
+        </article>
+
+        <!-- Beneficio 2: Consistencia -->
+        <article class="benefit-card">
+          <span class="benefit-card__num" aria-hidden="true">02</span>
+          <div class="benefit-card__icon" aria-hidden="true">🔥</div>
+          <h3 class="benefit-card__title">Racha de Hábitos</h3>
+          <p class="benefit-card__desc">
+            Construye rachas de días consecutivos. El sistema te motiva a
+            no romper la cadena y mantener la disciplina.
+          </p>
+          <span class="benefit-card__tag">Racha · Disciplina</span>
+        </article>
+
+        <!-- Beneficio 3: Historial -->
+        <article class="benefit-card">
+          <span class="benefit-card__num" aria-hidden="true">03</span>
+          <div class="benefit-card__icon" aria-hidden="true">📅</div>
+          <h3 class="benefit-card__title">Historial Visual</h3>
+          <p class="benefit-card__desc">
+            Calendario de 30 días con código de colores. De un vistazo
+            sabes qué días completaste ambas rutinas.
+          </p>
+          <span class="benefit-card__tag">Calendario · 30 días</span>
+        </article>
+
+        <!-- Beneficio 4: Progreso -->
+        <article class="benefit-card">
+          <span class="benefit-card__num" aria-hidden="true">04</span>
+          <div class="benefit-card__icon" aria-hidden="true">📊</div>
+          <h3 class="benefit-card__title">Progreso Medible</h3>
+          <p class="benefit-card__desc">
+            Estadísticas claras: días completados, porcentaje de
+            consistencia mensual y tu racha actual siempre visibles.
+          </p>
+          <span class="benefit-card__tag">Stats · Porcentaje</span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CTA FINAL — Llamada a la acción
+  ============================================================ -->
+  <section class="cta-final" id="cta-final" aria-label="Llamada a la acción">
+    <div class="cta-final__inner">
+
+      <div class="cta-final__tag" aria-label="Propuesta">
+        <span aria-hidden="true">✦</span>
+        Empieza hoy · Es gratis
+      </div>
+
+      <h2 class="cta-final__title">
+        Tu mejor piel comienza<br>
+        con un <em>hábito</em>
+      </h2>
+
+      <p class="cta-final__subtitle">
+        Únete a Viridia y convierte el cuidado de tu piel en un ritual
+        constante, elegante y medible. Tu versión más disciplinada empieza ahora.
+      </p>
+
+      <a href="https://viridiasc.github.io/ViridiaSC/" class="btn-luminous">
+        Abrir Viridia SkinCare
+        <span class="btn-luminous__arrow" aria-hidden="true">→</span>
+      </a>
+
+      <p class="cta-final__note">Sin tarjeta de crédito · Solo tu y tu disciplina</p>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <span class="footer__logo">Viridia <span>SkinCare</span></span>
+    </div>
+  </footer>
+
+</body>
+</html>
